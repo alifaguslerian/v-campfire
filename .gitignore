@@ -1,0 +1,30 @@
+# dependencies & build artifacts
+node_modules/
+dist/
+build/
+src-tauri/target/
+
+# local data - app should write to OS app-data dir, not here, but this
+# is kept as a safety net in case dev config ever points locally
+*.db
+*.sqlite
+*.sqlite3
+.dev-data/
+
+# secrets
+.env
+.env.local
+
+# logs
+*.log
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+node_modules/
