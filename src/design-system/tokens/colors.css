@@ -1,0 +1,39 @@
+/*
+ * Color tokens - "warm ember cabin" theme.
+ * Every text/background pair here has been checked against WCAG contrast
+ * ratios (see docs/DESIGN_SYSTEM.md for the numbers), not eyeballed.
+ * Do not add new semantic colors casually - this is a single-user app,
+ * not a design system for a large product; keep the palette minimal.
+ */
+
+:root {
+  /* backgrounds - layered dark, warm-tinted (not neutral gray) */
+  --bg-base: #14110f;
+  --bg-elevated: #1e1a17;
+  --bg-elevated-2: #29231f;
+
+  /* text */
+  --text-primary: #f2e9e1;
+  --text-secondary: #b8a99b;
+  /* AA-large only (3.71:1) - large text / placeholders / disabled state ONLY,
+     never small body text */
+  --text-muted: #7a6c60;
+
+  /* accent - the "ember" */
+  --accent-primary: #e8873a;
+  --accent-primary-hover: #f49c52;
+  --accent-secondary: #b24a2c; /* rust - badges, tags, secondary emphasis */
+
+  /* semantic - deliberately minimal, see docs/DESIGN_SYSTEM.md for why
+     there is no separate warning/info color */
+  --color-error: #dd5b47;
+  --color-success: #8ca36a;
+
+  /* borders - two tiers, different contrast requirements */
+  --border-subtle: #332c27; /* decorative dividers only, no contrast req */
+  --border-functional: #74655a; /* input outlines, anything that must meet 3:1 */
+
+  /* focus ring reuses accent-primary - already high-contrast and ties
+     keyboard focus visually to the "ember glow" identity */
+  --focus-ring: var(--accent-primary);
+}

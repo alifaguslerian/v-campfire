@@ -1,0 +1,43 @@
+/*
+ * Typography tokens. Fonts are self-hosted (woff2) under this folder,
+ * not loaded from Google Fonts CDN - this app is offline-first, so
+ * every startup should work with zero network requests.
+ *
+ * Font files themselves are NOT included in this scaffold - download
+ * Fraunces and Work Sans (both SIL OFL) and place the woff2 files at
+ * ./fonts/ before this @font-face block will actually resolve.
+ */
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("./fonts/fraunces-variable.woff2") format("woff2-variations");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Work Sans";
+  src: url("./fonts/work-sans-variable.woff2") format("woff2-variations");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-display: "Fraunces", serif;
+  --font-body: "Work Sans", sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.5rem;
+}
+
+/* tabular figures for the pomodoro timer so digits don't shift width
+   while counting down - no separate monospace font needed for this */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
