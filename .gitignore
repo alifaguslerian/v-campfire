@@ -28,3 +28,7 @@ Thumbs.db
 .idea/
 
 node_modules/
+target/
+
+src-tauri/target/
+src-tauri/icons/
