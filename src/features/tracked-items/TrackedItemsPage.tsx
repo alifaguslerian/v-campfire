@@ -1,15 +1,17 @@
 import { useEffect, useState, type FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "../../design-system/components/Button/Button";
 import { Card } from "../../design-system/components/Card/Card";
+import { ProgressBar } from "../../design-system/components/ProgressBar/ProgressBar";
 import {
   createTrackedItem,
   listTrackedItems,
-  type TrackedItem,
   type TrackedItemType,
+  type TrackedItemWithProgress,
 } from "../../core/db/trackedItems";
 
 export function TrackedItemsPage() {
-  const [items, setItems] = useState<TrackedItem[]>([]);
+  const [items, setItems] = useState<TrackedItemWithProgress[]>([]);
   const [title, setTitle] = useState("");
   const [type, setType] = useState<TrackedItemType>("project");
   const [loading, setLoading] = useState(true);
@@ -37,10 +39,7 @@ export function TrackedItemsPage() {
       <h1 style={{ fontFamily: "var(--font-display)" }}>Tracked Items</h1>
 
       <Card style={{ marginBottom: 16 }}>
-        <form
-          onSubmit={handleAdd}
-          style={{ display: "flex", gap: 8 }}
-        >
+        <form onSubmit={handleAdd} style={{ display: "flex", gap: 8 }}>
           <select
             value={type}
             onChange={(e) => setType(e.target.value as TrackedItemType)}
@@ -67,14 +66,38 @@ export function TrackedItemsPage() {
           No tracked items yet.
         </p>
       ) : (
-        items.map((item) => (
-          <Card key={item.id} style={{ marginBottom: 8 }}>
-            <strong>{item.title}</strong>{" "}
-            <span style={{ color: "var(--text-secondary)" }}>
-              ({item.type})
-            </span>
-          </Card>
-        ))
+        items.map((item) => {
+          const progress =
+            item.checklist_total > 0
+              ? Math.round((item.checklist_done / item.checklist_total) * 100)
+              : 0;
+          return (
+            <Card key={item.id} style={{ marginBottom: 8 }}>
+              <Link
+                to={`/tracked-items/${item.id}`}
+                style={{ color: "var(--text-primary)", textDecoration: "none" }}
+              >
+                <strong>{item.title}</strong>
+              </Link>{" "}
+              <span style={{ color: "var(--text-secondary)" }}>
+                ({item.type})
+              </span>
+              {item.checklist_total > 0 && (
+                <div style={{ marginTop: 8 }}>
+                  <ProgressBar value={progress} />
+                  <span
+                    style={{
+                      fontSize: "var(--text-xs)",
+                      color: "var(--text-secondary)",
+                    }}
+                  >
+                    {item.checklist_done}/{item.checklist_total}
+                  </span>
+                </div>
+              )}
+            </Card>
+          );
+        })
       )}
     </div>
   );

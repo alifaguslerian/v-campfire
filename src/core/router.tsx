@@ -1,6 +1,7 @@
 import { createHashRouter, Navigate } from "react-router-dom";
 import { App } from "../app/App";
 import { TrackedItemsPage } from "../features/tracked-items/TrackedItemsPage";
+import { TrackedItemDetailPage } from "../features/tracked-items/TrackedItemDetailPage";
 
 // createHashRouter, not createBrowserRouter - Tauri serves the production
 // build through its own asset protocol, not a server that can resolve
@@ -13,6 +14,7 @@ export const router = createHashRouter([
     children: [
       { index: true, element: <Navigate to="/tracked-items" replace /> },
       { path: "tracked-items", element: <TrackedItemsPage /> },
+      { path: "tracked-items/:id", element: <TrackedItemDetailPage /> },
     ],
   },
 ]);
