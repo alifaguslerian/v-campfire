@@ -17,3 +17,18 @@ export async function getDb(): Promise<Database> {
   }
   return dbInstance;
 }
+
+// Temporary verification helper - not a real feature function. Inserts one
+// row and returns the row count. Delete this once tracked-items has its own
+// real query functions and has proven the db layer works.
+export async function pingDb(): Promise<number> {
+  const db = await getDb();
+  await db.execute(
+    "INSERT INTO tracked_items (type, title) VALUES ($1, $2)",
+    ["project", "DB connection test"],
+  );
+  const result = await db.select<{ count: number }[]>(
+    "SELECT COUNT(*) as count FROM tracked_items",
+  );
+  return result[0].count;
+}

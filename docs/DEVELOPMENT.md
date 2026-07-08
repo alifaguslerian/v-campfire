@@ -3,7 +3,7 @@
 ## Setup
 
 ```bash
-git clone https://github.com/<username>/v-campfire.git
+git clone https://github.com/alifaguslerian/v-campfire.git
 cd v-campfire
 npm install
 ```
@@ -11,7 +11,7 @@ npm install
 Sebelum `npm run tauri dev` pertama kali:
 1. Pastikan Rust toolchain terpasang (rustup) - belum diverifikasi di environment mana pun saat scaffold dibuat.
 2. Generate icon: `npm run tauri icon path/to/source-icon.png` (folder `src-tauri/icons/` masih kosong).
-3. Migration di `src-tauri/migrations/` dijalankan otomatis oleh `tauri-plugin-sql` saat pertama koneksi ke db dibuka - tidak perlu langkah manual.
+3. Migration di `src-tauri/migrations/` **tidak** jalan otomatis dari file - migration didaftarkan eksplisit di `src-tauri/src/lib.rs` lewat `add_migrations()`, dengan SQL di-embed via `include_str!`. Kalau nambah migration baru: tambah file `000N_nama.sql`, lalu tambah satu entry `Migration { version: N, ... }` di `lib.rs`. Menaruh file SQL baru tanpa mendaftarkannya di `lib.rs` tidak akan berefek apa-apa.
 
 ## Running
 
