@@ -9,3 +9,20 @@ body {
   font-family: var(--font-body);
   margin: 0;
 }
+
+/* native form controls (select, scrollbar, etc.) render in their dark
+   variant automatically instead of the OS light default */
+:root {
+  color-scheme: dark;
+}
+
+input,
+select {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  background-color: var(--bg-base);
+  border: 1px solid var(--border-functional);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+}
