@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../../design-system/components/Button/Button";
 import { Card } from "../../design-system/components/Card/Card";
 import { ProgressBar } from "../../design-system/components/ProgressBar/ProgressBar";
+import { calculateProgress } from "../../core/utils/progress";
 import {
   createTrackedItem,
   listTrackedItems,
@@ -67,10 +68,10 @@ export function TrackedItemsPage() {
         </p>
       ) : (
         items.map((item) => {
-          const progress =
-            item.checklist_total > 0
-              ? Math.round((item.checklist_done / item.checklist_total) * 100)
-              : 0;
+          const progress = calculateProgress(
+            item.checklist_done,
+            item.checklist_total,
+          );
           return (
             <Card key={item.id} style={{ marginBottom: 8 }}>
               <Link

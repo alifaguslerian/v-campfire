@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../../design-system/components/Button/Button";
 import { Card } from "../../design-system/components/Card/Card";
 import { ProgressBar } from "../../design-system/components/ProgressBar/ProgressBar";
+import { calculateProgress } from "../../core/utils/progress";
 import {
   archiveTrackedItem,
   getTrackedItem,
@@ -64,7 +65,7 @@ export function TrackedItemDetailPage() {
 
   const total = checklist.length;
   const done = checklist.filter((c) => c.is_done).length;
-  const progress = total > 0 ? Math.round((done / total) * 100) : 0;
+  const progress = calculateProgress(done, total);
 
   return (
     <div style={{ padding: 24 }}>
