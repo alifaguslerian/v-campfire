@@ -5,6 +5,7 @@ import styles from "./Sidebar.module.css";
 // placeholder links to Focus/Journal/etc. before v0.2 actually builds them.
 const navItems = [
   { to: "/tracked-items", label: "Tracked Items" },
+  { to: "/journal", label: "Journal" },
   { to: "/sticky-notes", label: "Sticky Notes" },
 ];
 
