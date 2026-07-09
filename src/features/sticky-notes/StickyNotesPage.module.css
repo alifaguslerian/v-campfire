@@ -1,0 +1,71 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+
+.note {
+  position: relative;
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  min-height: 140px;
+  display: flex;
+}
+
+.amber {
+  background-color: var(--accent-primary);
+}
+.amber .textarea {
+  color: var(--bg-base);
+}
+
+.sage {
+  background-color: var(--color-success);
+}
+.sage .textarea {
+  color: var(--bg-base);
+}
+
+.neutral {
+  background-color: var(--bg-elevated-2);
+  border: 1px solid var(--border-subtle);
+}
+.neutral .textarea {
+  color: var(--text-primary);
+}
+
+.textarea {
+  flex: 1;
+  background: transparent;
+  border: none;
+  resize: none;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  outline: none;
+}
+
+.textarea:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.textarea::placeholder {
+  color: inherit;
+  opacity: 0.6;
+}
+
+.deleteButton {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.6;
+  font-size: var(--text-sm);
+}
+
+.deleteButton:hover {
+  opacity: 1;
+}

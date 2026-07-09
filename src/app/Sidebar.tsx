@@ -3,7 +3,10 @@ import styles from "./Sidebar.module.css";
 
 // Nav items are added one at a time as features actually exist - no
 // placeholder links to Focus/Journal/etc. before v0.2 actually builds them.
-const navItems = [{ to: "/tracked-items", label: "Tracked Items" }];
+const navItems = [
+  { to: "/tracked-items", label: "Tracked Items" },
+  { to: "/sticky-notes", label: "Sticky Notes" },
+];
 
 export function Sidebar() {
   return (
