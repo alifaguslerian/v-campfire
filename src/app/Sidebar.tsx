@@ -1,15 +1,18 @@
 import { NavLink } from "react-router-dom";
+import { useFocusStore } from "../core/focus/store";
+import { formatSecondsAsClock } from "../core/utils/time";
 import styles from "./Sidebar.module.css";
 
-// Nav items are added one at a time as features actually exist - no
-// placeholder links to Focus/Journal/etc. before v0.2 actually builds them.
 const navItems = [
   { to: "/tracked-items", label: "Tracked Items" },
+  { to: "/focus", label: "Focus" },
   { to: "/journal", label: "Journal" },
   { to: "/sticky-notes", label: "Sticky Notes" },
 ];
 
 export function Sidebar() {
+  const { phase, secondsRemaining } = useFocusStore();
+
   return (
     <nav className={styles.sidebar}>
       <div
@@ -18,6 +21,17 @@ export function Sidebar() {
       >
         V Campfire
       </div>
+
+      {phase !== "idle" && (
+        <div
+          className="tabular-nums"
+          style={{ fontSize: "var(--text-sm)", color: "var(--accent-primary)" }}
+        >
+          {phase === "focus" ? "Focus" : "Break"} -{" "}
+          {formatSecondsAsClock(secondsRemaining)}
+        </div>
+      )}
+
       <ul className={styles.navList}>
         {navItems.map((item) => (
           <li key={item.to}>
