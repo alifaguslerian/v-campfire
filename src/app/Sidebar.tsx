@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useFocusStore } from "../core/focus/store";
+import { useAudioStore } from "../core/audio/store";
 import { formatSecondsAsClock } from "../core/utils/time";
 import styles from "./Sidebar.module.css";
 
@@ -8,10 +9,12 @@ const navItems = [
   { to: "/focus", label: "Focus" },
   { to: "/journal", label: "Journal" },
   { to: "/sticky-notes", label: "Sticky Notes" },
+  { to: "/music", label: "Music" },
 ];
 
 export function Sidebar() {
   const { phase, secondsRemaining } = useFocusStore();
+  const { currentTrack, isPlaying } = useAudioStore();
 
   return (
     <nav className={styles.sidebar}>
@@ -29,6 +32,12 @@ export function Sidebar() {
         >
           {phase === "focus" ? "Focus" : "Break"} -{" "}
           {formatSecondsAsClock(secondsRemaining)}
+        </div>
+      )}
+
+      {currentTrack && (
+        <div style={{ fontSize: "var(--text-sm)", color: "var(--text-secondary)" }}>
+          {isPlaying ? "Playing" : "Paused"}: {currentTrack}
         </div>
       )}
 

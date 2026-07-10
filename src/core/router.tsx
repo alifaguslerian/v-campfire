@@ -5,6 +5,7 @@ import { TrackedItemDetailPage } from "../features/tracked-items/TrackedItemDeta
 import { StickyNotesPage } from "../features/sticky-notes/StickyNotesPage";
 import { JournalPage } from "../features/journal/JournalPage";
 import { FocusPage } from "../features/focus/FocusPage";
+import { MusicPage } from "../features/music/MusicPage";
 
 // createHashRouter, not createBrowserRouter - Tauri serves the production
 // build through its own asset protocol, not a server that can resolve
@@ -21,6 +22,7 @@ export const router = createHashRouter([
       { path: "sticky-notes", element: <StickyNotesPage /> },
       { path: "journal", element: <JournalPage /> },
       { path: "focus", element: <FocusPage /> },
+      { path: "music", element: <MusicPage /> },
     ],
   },
 ]);
