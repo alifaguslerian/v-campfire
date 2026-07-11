@@ -23,7 +23,11 @@ pub fn run() {
                 .add_migrations("sqlite:v-campfire.db", migrations)
                 .build(),
         )
-        .plugin(tauri_plugin_log::Builder::new().build())
+        .plugin(
+            tauri_plugin_log::Builder::new()
+                .level(log::LevelFilter::Info)
+                .build(),
+        )
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_dialog::init())
         .run(tauri::generate_context!())
