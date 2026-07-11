@@ -1,6 +1,6 @@
 import { createHashRouter, Navigate } from "react-router-dom";
 import { App } from "../app/App";
-import { TrackedItemsPage } from "../features/tracked-items/TrackedItemsPage";
+import { TrackedItemsPage }  from "../features/tracked-items/TrackedItemsPage";
 import { TrackedItemDetailPage } from "../features/tracked-items/TrackedItemDetailPage";
 import { StickyNotesPage } from "../features/sticky-notes/StickyNotesPage";
 import { JournalPage } from "../features/journal/JournalPage";

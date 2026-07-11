@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../../design-system/components/Button/Button";
 import { Card } from "../../design-system/components/Card/Card";
 import { ProgressBar } from "../../design-system/components/ProgressBar/ProgressBar";
+import { Gallery } from "./Gallery";
 import { calculateProgress } from "../../core/utils/progress";
 import {
   archiveTrackedItem,
@@ -129,6 +130,8 @@ export function TrackedItemDetailPage() {
           </Card>
         ))
       )}
+
+      <Gallery trackedItemId={trackedItemId} />
 
       <Button
         variant="destructive"
