@@ -10,6 +10,7 @@ const navItems = [
   { to: "/journal", label: "Journal" },
   { to: "/sticky-notes", label: "Sticky Notes" },
   { to: "/music", label: "Music" },
+  { to: "/stats", label: "Stats" },
 ];
 
 export function Sidebar() {
