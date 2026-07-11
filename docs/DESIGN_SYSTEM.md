@@ -45,6 +45,8 @@ No separate warning or info color. `--accent-primary` already reads as "attentio
 
 Scale: `4 / 8 / 12 / 16 / 24 / 32 / 48 / 64px`. Radius: `6px` (inputs, small buttons), `10px` (cards), `16px` (modals) - moderate, never a full pill shape.
 
+**One deliberate exception**: the bottom navigation dock uses a full-round pill (`border-radius: 9999px`). A floating dock reads as a physical object separate from the content surface, not a content card - full-round is the correct shape for that specific role. Cards, buttons, and every other content surface keep the moderate-radius rule unchanged.
+
 ## Accessibility
 
 Priorities kept cheap and relevant for a single-user app - not a full WCAG audit, which makes more sense for a product with a broad user base:

@@ -17,6 +17,7 @@
     "@tauri-apps/plugin-fs": "^2.5.1",
     "@tauri-apps/plugin-log": "^2.0.0",
     "@tauri-apps/plugin-sql": "^2.0.0",
+    "lucide-react": "^1.24.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "react-router-dom": "^6.26.0",

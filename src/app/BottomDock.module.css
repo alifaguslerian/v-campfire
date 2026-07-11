@@ -1,0 +1,85 @@
+/*
+ * Deliberate exception to the "never a full pill shape" rule in
+ * docs/DESIGN_SYSTEM.md - that rule is about content cards reading as
+ * generic SaaS UI. A floating dock/toolbar is a different object in the
+ * visual language (it reads as a physical floating control, not a content
+ * container), and full-round is the correct shape for that, same as the
+ * reference direction shown. Content surfaces (Card, etc.) keep the
+ * moderate-radius rule unchanged.
+ */
+.dock {
+  position: fixed;
+  bottom: var(--space-5);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  border-radius: 9999px;
+  background-color: color-mix(in srgb, var(--bg-elevated) 90%, transparent);
+  backdrop-filter: blur(var(--surface-blur));
+  -webkit-backdrop-filter: blur(var(--surface-blur));
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 44px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition:
+    color var(--duration-fast) ease,
+    background-color var(--duration-fast) ease;
+}
+
+.item:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-elevated-2);
+}
+
+.active {
+  color: var(--accent-primary);
+}
+
+.label {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.dot {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+  animation: pulse var(--duration-ambient) var(--ease-standard) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    animation: none;
+  }
+}
