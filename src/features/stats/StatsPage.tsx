@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card } from "../../design-system/components/Card/Card";
+import { PageContainer } from "../../design-system/components/PageContainer/PageContainer";
 import {
   getStatsSummary,
   listJournalDates,
@@ -29,10 +29,14 @@ export function StatsPage() {
   }, []);
 
   if (loading || !summary) {
-    return <div style={{ padding: 24 }}>Loading...</div>;
+    return (
+      <PageContainer>
+        <p>Loading...</p>
+      </PageContainer>
+    );
   }
 
-  const statCards = [
+  const statRows = [
     { label: "Focus time", value: formatHours(summary.totalFocusSeconds) },
     {
       label: "Checklist items done",
@@ -47,38 +51,61 @@ export function StatsPage() {
   ];
 
   return (
-    <div style={{ padding: 24 }}>
-      <h1 style={{ fontFamily: "var(--font-display)" }}>Stats</h1>
-      <div
+    <PageContainer>
+      <h1
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
-          gap: 16,
+          fontFamily: "var(--font-display)",
+          fontSize: "var(--text-3xl)",
+          marginBottom: 40,
         }}
       >
-        {statCards.map((stat) => (
-          <Card key={stat.label}>
-            <p
+        Stats
+      </h1>
+
+      {/*
+        Deliberately not a grid of Cards - a set of numbers each boxed in
+        an identical tile is exactly the "admin dashboard" look this pass
+        is moving away from. A quiet ledger-style list, with typography
+        doing the work instead of surfaces, fits the "workspace, not
+        dashboard" direction better.
+      */}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {statRows.map((stat, i) => (
+          <div
+            key={stat.label}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "baseline",
+              paddingBottom: 20,
+              marginBottom: 20,
+              borderBottom:
+                i < statRows.length - 1
+                  ? "1px solid var(--border-subtle)"
+                  : "none",
+            }}
+          >
+            <span
               style={{
                 color: "var(--text-secondary)",
                 fontSize: "var(--text-sm)",
-                marginBottom: 4,
               }}
             >
               {stat.label}
-            </p>
-            <p
+            </span>
+            <span
               className="tabular-nums"
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "var(--text-xl)",
+                fontSize: "var(--text-2xl)",
+                color: "var(--text-primary)",
               }}
             >
               {stat.value}
-            </p>
-          </Card>
+            </span>
+          </div>
         ))}
       </div>
-    </div>
+    </PageContainer>
   );
 }
