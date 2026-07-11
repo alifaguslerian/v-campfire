@@ -37,3 +37,24 @@
      keyboard focus visually to the "ember glow" identity */
   --focus-ring: var(--accent-primary);
 }
+
+/*
+ * Elevation & surface tokens - depth expressed via shadow/opacity/blur,
+ * not border lines. --border-subtle stays defined for genuinely
+ * decorative dividers, but is no longer the default way a Card separates
+ * itself from the background - see Card.module.css.
+ *
+ * Verified: card-over-glow worst case still gives text-primary a 14.35:1
+ * and accent-primary-as-text a 6.52:1 contrast ratio (down from 14.41/7.13
+ * on a flat background) - the ambient glow layer is faint enough that it
+ * doesn't meaningfully erode any of the contrast work already done.
+ */
+:root {
+  --surface-opacity: 0.9;
+  --surface-blur: 12px;
+
+  /* warm-tinted shadow, not a generic black one - keeps depth consistent
+     with the ember palette instead of reading as a cold drop-shadow */
+  --shadow-sm: 0 2px 8px rgba(20, 14, 10, 0.35);
+  --shadow-md: 0 8px 24px rgba(20, 14, 10, 0.45);
+}

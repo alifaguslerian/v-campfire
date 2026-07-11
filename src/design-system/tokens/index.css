@@ -2,6 +2,7 @@
 @import "./colors.css";
 @import "./spacing.css";
 @import "./typography.css";
+@import "./motion.css";
 
 body {
   background-color: var(--bg-base);

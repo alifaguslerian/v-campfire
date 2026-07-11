@@ -2,13 +2,17 @@ import { Outlet } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { FocusTimerDriver } from "../core/focus/FocusTimerDriver";
 import { AudioDriver } from "../core/audio/AudioDriver";
+import { AmbientBackground } from "./AmbientBackground";
 
 // Root layout. Anything mounted here survives route changes - FocusTimerDriver
 // and AudioDriver both live here, never inside a routed page, or navigating
-// away would stop the timer / cut the audio.
+// away would stop the timer / cut the audio. AmbientBackground is purely
+// visual (no state) but lives here too since it's a shell-level concern,
+// not per-page.
 export function App() {
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
+      <AmbientBackground />
       <FocusTimerDriver />
       <AudioDriver />
       <Sidebar />

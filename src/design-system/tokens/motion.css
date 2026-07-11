@@ -1,0 +1,15 @@
+/*
+ * Motion tokens for ambient/background effects specifically (hover states
+ * already use inline durations in each component's CSS module - this file
+ * is just for the slow, ambient stuff).
+ *
+ * Hard rule: anything using --duration-ambient must only animate
+ * `opacity` or `transform` (GPU-compositable, no layout/repaint cost) -
+ * see docs/PERFORMANCE.md's idle-CPU budget. Never animate width, height,
+ * background-position, or anything that forces a repaint on every frame.
+ */
+:root {
+  --duration-fast: 150ms;
+  --duration-ambient: 10s;
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}

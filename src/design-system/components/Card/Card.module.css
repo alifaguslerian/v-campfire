@@ -1,6 +1,8 @@
 .card {
-  background-color: var(--bg-elevated);
-  border: 1px solid var(--border-subtle);
+  background-color: color-mix(in srgb, var(--bg-elevated) 90%, transparent);
+  backdrop-filter: blur(var(--surface-blur));
+  -webkit-backdrop-filter: blur(var(--surface-blur));
   border-radius: var(--radius-md);
   padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
 }

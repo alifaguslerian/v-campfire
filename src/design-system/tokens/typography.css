@@ -41,3 +41,10 @@
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
+
+/* One size larger than --text-2xl, reserved for a page's single main
+   heading only - not a general-purpose size, so it doesn't get reused
+   into inflating every heading level. */
+:root {
+  --text-3xl: 3.25rem;
+}
