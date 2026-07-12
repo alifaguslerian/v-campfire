@@ -8,7 +8,10 @@ import { useAudioStore } from "../../core/audio/store";
 import { formatSecondsAsClock } from "../../core/utils/time";
 import { calculateProgress } from "../../core/utils/progress";
 import { calculateStreak } from "../../core/utils/streak";
-import { getDailyQuote } from "../../core/utils/dailyQuote";
+import {
+  getCurrentTimeLabel,
+  getTimeAwareMessage,
+} from "../../core/utils/greeting";
 import { getLocalDateString } from "../../core/utils/date";
 import {
   listTrackedItems,
@@ -34,6 +37,16 @@ export function HomePage() {
   const [focusHours, setFocusHours] = useState(0);
   const [streak, setStreak] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [clock, setClock] = useState(() => getCurrentTimeLabel());
+
+  // Picked once on mount, not re-rolled on every render - so it doesn't
+  // change out from under the user while they're reading it.
+  const [timeMessage] = useState(() => getTimeAwareMessage());
+
+  useEffect(() => {
+    const interval = setInterval(() => setClock(getCurrentTimeLabel()), 30_000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -51,7 +64,6 @@ export function HomePage() {
     })();
   }, []);
 
-  const quote = getDailyQuote();
   const dateLabel = new Date().toLocaleDateString(undefined, {
     weekday: "long",
     month: "long",
@@ -80,11 +92,37 @@ export function HomePage() {
         style={{
           fontFamily: "var(--font-display)",
           fontSize: "var(--text-3xl)",
-          marginBottom: 32,
+          marginBottom: 12,
         }}
       >
         {heading}
       </h1>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "baseline",
+          marginBottom: 32,
+        }}
+      >
+        <p
+          style={{
+            fontFamily: "var(--font-display)",
+            fontStyle: "italic",
+            color: "var(--text-secondary)",
+            fontSize: "var(--text-base)",
+            margin: 0,
+          }}
+        >
+          {timeMessage}
+        </p>
+        <span
+          className="tabular-nums"
+          style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)" }}
+        >
+          {clock}
+        </span>
+      </div>
 
       <div className={styles.layout}>
         {/* main column - what's actually happening */}
@@ -281,18 +319,6 @@ export function HomePage() {
               <span className="tabular-nums">{focusHours.toFixed(1)}h</span>
             </div>
           </Card>
-
-          <p
-            style={{
-              fontFamily: "var(--font-display)",
-              fontStyle: "italic",
-              color: "var(--text-secondary)",
-              fontSize: "var(--text-lg)",
-              textAlign: "center",
-            }}
-          >
-            &ldquo;{quote}&rdquo;
-          </p>
         </div>
       </div>
     </div>
