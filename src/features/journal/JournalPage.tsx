@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Card } from "../../design-system/components/Card/Card";
+import { PageContainer } from "../../design-system/components/PageContainer/PageContainer";
 import { useDebouncedCallback } from "../../core/utils/useDebouncedCallback";
 import { getLocalDateString } from "../../core/utils/date";
 import { getEntryByDate, upsertEntry } from "../../core/db/journal";
+import styles from "./JournalPage.module.css";
 
 const today = getLocalDateString();
 
@@ -13,9 +14,10 @@ const labelStyle: React.CSSProperties = {
   fontSize: "var(--text-sm)",
 };
 
-const textareaStyle: React.CSSProperties = {
-  width: "100%",
-  minHeight: 80,
+const sectionStyle: React.CSSProperties = {
+  marginBottom: 32,
+  paddingBottom: 32,
+  borderBottom: "1px solid var(--border-subtle)",
 };
 
 export function JournalPage() {
@@ -71,41 +73,66 @@ export function JournalPage() {
     debouncedSave(nextDone, nextBlockers, nextTarget);
   }
 
-  if (loading) return <div style={{ padding: 24 }}>Loading...</div>;
+  if (loading) {
+    return (
+      <PageContainer>
+        <p>Loading...</p>
+      </PageContainer>
+    );
+  }
 
   return (
-    <div style={{ padding: 24 }}>
-      <h1 style={{ fontFamily: "var(--font-display)" }}>Journal</h1>
-      <p style={{ color: "var(--text-secondary)", marginBottom: 16 }}>
+    <PageContainer>
+      <p
+        style={{
+          color: "var(--text-secondary)",
+          fontSize: "var(--text-sm)",
+          marginBottom: 8,
+        }}
+      >
         {today}
       </p>
+      <h1
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "var(--text-3xl)",
+          marginBottom: 40,
+        }}
+      >
+        Journal
+      </h1>
 
-      <Card style={{ marginBottom: 16 }}>
+      {/*
+        One entry, three fields - not three separate boxed panels. A flowing
+        page with quiet dividers reads as a single act of writing, not a
+        form to fill out field by field.
+      */}
+      <div style={sectionStyle}>
         <label style={labelStyle}>Apa yang selesai hari ini?</label>
         <textarea
           value={doneToday}
           onChange={(e) => handleFieldChange("done", e.target.value)}
-          style={textareaStyle}
+          className={styles.entryField}
         />
-      </Card>
+      </div>
 
-      <Card style={{ marginBottom: 16 }}>
+      <div style={sectionStyle}>
         <label style={labelStyle}>Kendala?</label>
         <textarea
           value={blockers}
           onChange={(e) => handleFieldChange("blockers", e.target.value)}
-          style={textareaStyle}
+          className={styles.entryField}
         />
-      </Card>
+      </div>
 
-      <Card>
+      <div>
         <label style={labelStyle}>Target besok?</label>
         <textarea
           value={tomorrowTarget}
           onChange={(e) => handleFieldChange("target", e.target.value)}
-          style={textareaStyle}
+          className={styles.entryField}
         />
-      </Card>
-    </div>
+      </div>
+    </PageContainer>
   );
 }
