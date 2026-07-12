@@ -1,5 +1,6 @@
 import { Button } from "../../design-system/components/Button/Button";
 import { Card } from "../../design-system/components/Card/Card";
+import { PageContainer } from "../../design-system/components/PageContainer/PageContainer";
 import { formatSecondsAsClock } from "../../core/utils/time";
 import { useFocusStore } from "../../core/focus/store";
 
@@ -8,8 +9,16 @@ export function FocusPage() {
     useFocusStore();
 
   return (
-    <div style={{ padding: 24 }}>
-      <h1 style={{ fontFamily: "var(--font-display)" }}>Focus</h1>
+    <PageContainer>
+      <h1
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "var(--text-3xl)",
+          marginBottom: 24,
+        }}
+      >
+        Focus
+      </h1>
 
       {phase === "break" && (
         <Card
@@ -60,6 +69,6 @@ export function FocusPage() {
           </Button>
         </div>
       </Card>
-    </div>
+    </PageContainer>
   );
 }
