@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../../design-system/components/Button/Button";
 import { Card } from "../../design-system/components/Card/Card";
+import { PageContainer } from "../../design-system/components/PageContainer/PageContainer";
 import { ProgressBar } from "../../design-system/components/ProgressBar/ProgressBar";
 import { Gallery } from "./Gallery";
 import { calculateProgress } from "../../core/utils/progress";
@@ -61,17 +62,27 @@ export function TrackedItemDetailPage() {
     navigate("/tracked-items");
   }
 
-  if (loading) return <div style={{ padding: 24 }}>Loading...</div>;
-  if (!item) return <div style={{ padding: 24 }}>Not found.</div>;
+  if (loading) return <PageContainer>Loading...</PageContainer>;
+  if (!item) return <PageContainer>Not found.</PageContainer>;
 
   const total = checklist.length;
   const done = checklist.filter((c) => c.is_done).length;
   const progress = calculateProgress(done, total);
 
   return (
-    <div style={{ padding: 24 }}>
-      <h1 style={{ fontFamily: "var(--font-display)" }}>{item.title}</h1>
-      <p style={{ color: "var(--text-secondary)" }}>{item.type}</p>
+    <PageContainer>
+      <h1
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "var(--text-3xl)",
+          marginBottom: 4,
+        }}
+      >
+        {item.title}
+      </h1>
+      <p style={{ color: "var(--text-secondary)", marginBottom: 24 }}>
+        {item.type}
+      </p>
 
       <Card style={{ marginBottom: 16 }}>
         <ProgressBar value={progress} />
@@ -140,6 +151,6 @@ export function TrackedItemDetailPage() {
       >
         Archive
       </Button>
-    </div>
+    </PageContainer>
   );
 }
