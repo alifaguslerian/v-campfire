@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "../../design-system/components/Button/Button";
+import { PageContainer } from "../../design-system/components/PageContainer/PageContainer";
 import { useDebouncedCallback } from "../../core/utils/useDebouncedCallback";
 import {
   createStickyNote,
@@ -38,10 +39,18 @@ export function StickyNotesPage() {
   }
 
   return (
-    <div style={{ padding: 24 }}>
-      <h1 style={{ fontFamily: "var(--font-display)" }}>Sticky Notes</h1>
+    <PageContainer style={{ maxWidth: 1100 }}>
+      <h1
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "var(--text-3xl)",
+          marginBottom: 24,
+        }}
+      >
+        Sticky Notes
+      </h1>
 
-      <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+      <div style={{ display: "flex", gap: 8, marginBottom: 24 }}>
         {COLOR_OPTIONS.map((color) => (
           <Button
             key={color}
@@ -70,7 +79,7 @@ export function StickyNotesPage() {
           ))}
         </div>
       )}
-    </div>
+    </PageContainer>
   );
 }
 
