@@ -1,5 +1,6 @@
-import { createHashRouter, Navigate } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import { App } from "../app/App";
+import { HomePage } from "../features/home/HomePage";
 import { TrackedItemsPage } from "../features/tracked-items/TrackedItemsPage";
 import { TrackedItemDetailPage } from "../features/tracked-items/TrackedItemDetailPage";
 import { StickyNotesPage } from "../features/sticky-notes/StickyNotesPage";
@@ -17,7 +18,7 @@ export const router = createHashRouter([
     path: "/",
     element: <App />,
     children: [
-      { index: true, element: <Navigate to="/tracked-items" replace /> },
+      { index: true, element: <HomePage /> },
       { path: "tracked-items", element: <TrackedItemsPage /> },
       { path: "tracked-items/:id", element: <TrackedItemDetailPage /> },
       { path: "sticky-notes", element: <StickyNotesPage /> },
