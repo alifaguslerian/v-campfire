@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Card } from "../../design-system/components/Card/Card";
 import { Button } from "../../design-system/components/Button/Button";
 import { ProgressBar } from "../../design-system/components/ProgressBar/ProgressBar";
+import { SectionHeading } from "../../design-system/components/SectionHeading/SectionHeading";
 import { useFocusStore } from "../../core/focus/store";
 import { useAudioStore } from "../../core/audio/store";
 import { formatSecondsAsClock } from "../../core/utils/time";
@@ -177,18 +178,17 @@ export function HomePage() {
         </div>
       </div>
 
+      <div
+        style={{
+          borderBottom: "1px solid var(--border-subtle)",
+          marginBottom: 40,
+        }}
+      />
+
       <div className={styles.layout}>
         {/* main column - what's actually happening */}
         <div>
-          <p
-            style={{
-              color: "var(--text-secondary)",
-              fontSize: "var(--text-sm)",
-              marginBottom: 12,
-            }}
-          >
-            Latest
-          </p>
+          <SectionHeading>Latest</SectionHeading>
           {loading ? (
             <p>Loading...</p>
           ) : recentItems.length === 0 ? (
@@ -201,7 +201,7 @@ export function HomePage() {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: 12,
+                gap: 8,
                 marginBottom: 32,
               }}
             >
@@ -211,39 +211,54 @@ export function HomePage() {
                   item.checklist_total,
                 );
                 return (
-                  <Card key={item.id}>
-                    <Link
-                      to={`/tracked-items/${item.id}`}
+                  <Card key={item.id} style={{ padding: "12px 16px" }}>
+                    <div
                       style={{
-                        color: "var(--text-primary)",
-                        textDecoration: "none",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 16,
                       }}
                     >
-                      <strong>{item.title}</strong>
-                    </Link>{" "}
-                    <span style={{ color: "var(--text-secondary)" }}>
-                      ({item.type})
-                    </span>
-                    {item.checklist_total > 0 && (
-                      <div style={{ marginTop: 8 }}>
+                      <Link
+                        to={`/tracked-items/${item.id}`}
+                        style={{
+                          flex: 1,
+                          minWidth: 0,
+                          color: "var(--text-primary)",
+                          textDecoration: "none",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        <strong>{item.title}</strong>{" "}
+                        <span style={{ color: "var(--text-secondary)" }}>
+                          ({item.type})
+                        </span>
+                      </Link>
+                      <div style={{ width: 80, flexShrink: 0 }}>
                         <ProgressBar value={progress} />
                       </div>
-                    )}
+                      <span
+                        className="tabular-nums"
+                        style={{
+                          width: 32,
+                          flexShrink: 0,
+                          textAlign: "right",
+                          fontSize: "var(--text-sm)",
+                          color: "var(--text-secondary)",
+                        }}
+                      >
+                        {item.checklist_total > 0 ? `${progress}%` : "\u2013"}
+                      </span>
+                    </div>
                   </Card>
                 );
               })}
             </div>
           )}
 
-          <p
-            style={{
-              color: "var(--text-secondary)",
-              fontSize: "var(--text-sm)",
-              marginBottom: 12,
-            }}
-          >
-            Today's journal
-          </p>
+          <SectionHeading>Today&apos;s journal</SectionHeading>
           {todayEntry?.done_today ? (
             <p>{todayEntry.done_today}</p>
           ) : (
