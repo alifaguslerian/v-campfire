@@ -12,42 +12,40 @@ export function getTimeBand(hour: number): TimeBand {
   return "evening";
 }
 
-// Deliberately not "1% better every day" style poster lines - mix of
-// soft, blunt, and a little intense, matching what was asked for. Night
-// pool is heavier/more introspective on purpose, for anyone genuinely
-// still up at that hour.
+// Two-sentence, descriptive-status length (not a short quip) - mix of
+// soft, blunt, and a little intense, never "1% better every day" style
+// poster lines. Night pool is heavier/more introspective on purpose, for
+// anyone genuinely still up at that hour.
 const MESSAGES: Record<TimeBand, string[]> = {
   night: [
-    "Still here. That says something about what you're building.",
-    "The house is quiet. Your mind doesn't have to be.",
-    "Some of the best work happens when no one else is awake to see it.",
-    "This hour asks for honesty, not hustle.",
-    "You're not behind. You're just working while the world sleeps.",
-    "Whatever kept you up, it mattered enough to stay for.",
-    "No one's grading this hour. Use it anyway.",
+    "Still here, long after most people gave up on the day. That kind of quiet focus doesn't happen by accident.",
+    "The house has gone quiet, but your mind clearly hasn't. That's alright - some of the best thinking happens in hours like this.",
+    "Nobody's awake to see this hour except you. Spend it however actually helps.",
+    "This is the version of you that shows up when no one's watching. Worth paying attention to.",
+    "Whatever's keeping you up, it mattered enough to stay for. That's not nothing.",
+    "No deadline demands this hour from you. You chose it. That's worth noticing.",
   ],
   morning: [
-    "The day hasn't decided what it is yet. Neither have you. Good.",
-    "Early enough that nothing's gone wrong yet.",
-    "A clean page, a clean hour.",
-    "Start rough. Starting is the whole point.",
-    "Whatever yesterday was, it's not today's problem anymore.",
+    "The day hasn't decided what kind of day it's going to be yet. Neither have you, and that's exactly as it should be.",
+    "Nothing's gone wrong yet. This is about as clean a start as you'll get, so use it.",
+    "A quiet hour before everything else gets loud. Good time to decide what actually matters today.",
+    "Whatever yesterday left unfinished, it's not this morning's problem to carry.",
+    "Early enough that the whole day still belongs to you.",
   ],
   day: [
-    "One thing at a time. That's the whole trick.",
-    "Progress doesn't need an audience.",
-    "You don't have to feel ready to begin.",
-    "Small moves count more than big plans.",
-    "Whatever's in front of you is the only thing that matters right now.",
-    "Nobody's watching. Do it anyway.",
-    "Discomfort now is just relief later.",
+    "One thing in front of you at a time - that's really the whole trick, even when it doesn't feel like enough.",
+    "Progress rarely looks impressive while it's happening. Keep going anyway.",
+    "You don't need to feel ready for this. Readiness tends to show up after you start, not before.",
+    "Small, unglamorous moves add up to more than big plans usually do.",
+    "Whatever's in front of you right now is the only thing that actually needs solving.",
+    "No one's grading this hour. Spend it like it counts anyway.",
   ],
   evening: [
-    "The day's mostly spent. Spend the rest of it on purpose.",
-    "You've earned the slow part of the day.",
-    "Whatever didn't get done can wait for tomorrow's version of you.",
-    "Close a loop before you close the day.",
-    "Not everything has to be finished to be enough.",
+    "Most of the day is spent now. What's left is still yours to use on purpose.",
+    "You've done enough today to earn the slower part of it.",
+    "Whatever didn't get finished can wait for tomorrow's version of you to handle.",
+    "Closing one loop before the day closes is usually worth the extra ten minutes.",
+    "Not everything needs to be finished today to count as a good one.",
   ],
 };
 
