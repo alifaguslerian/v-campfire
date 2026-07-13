@@ -1,17 +1,8 @@
+/* Layout-only overrides now - color/border/focus styling comes from the
+   global input/textarea default in tokens/index.css (bottom-border-only),
+   which was generalized from this page's original treatment. */
 .entryField {
   width: 100%;
   min-height: 100px;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--border-subtle);
-  padding: 0 0 8px 0;
   resize: vertical;
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  color: var(--text-primary);
-}
-
-.entryField:focus-visible {
-  outline: none;
-  border-bottom-color: var(--accent-primary);
 }
