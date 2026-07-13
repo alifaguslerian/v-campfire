@@ -16,6 +16,11 @@
   .layout {
     grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
   }
+
+  .side {
+    padding-left: var(--space-6);
+    border-left: 1px solid var(--border-subtle);
+  }
 }
 
 .side {
