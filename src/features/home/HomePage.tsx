@@ -22,7 +22,8 @@ import { getStatsSummary, listJournalDates } from "../../core/db/stats";
 import styles from "./HomePage.module.css";
 
 export function HomePage() {
-  const { phase, secondsRemaining, isRunning, start, pause } = useFocusStore();
+  const { phase, secondsRemaining, isRunning, start, pause, reset } =
+    useFocusStore();
   const {
     currentTrack,
     isPlaying,
@@ -79,42 +80,16 @@ export function HomePage() {
 
   return (
     <div className={styles.wrapper}>
-      <p
-        style={{
-          color: "var(--text-secondary)",
-          fontSize: "var(--text-sm)",
-          marginBottom: 8,
-        }}
-      >
-        {dateLabel}
-      </p>
-      <h1
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "var(--text-3xl)",
-          marginBottom: 12,
-        }}
-      >
-        {heading}
-      </h1>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "baseline",
-          marginBottom: 32,
+          marginBottom: 8,
         }}
       >
-        <p
-          style={{
-            fontFamily: "var(--font-display)",
-            fontStyle: "italic",
-            color: "var(--text-secondary)",
-            fontSize: "var(--text-base)",
-            margin: 0,
-          }}
-        >
-          {timeMessage}
+        <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)" }}>
+          {dateLabel}
         </p>
         <span
           className="tabular-nums"
@@ -124,63 +99,87 @@ export function HomePage() {
         </span>
       </div>
 
-      <div className={styles.layout}>
-        {/* main column - what's actually happening */}
-        <div>
-          <Card style={{ marginBottom: 24 }}>
-            <p
-              style={{
-                color: "var(--text-secondary)",
-                fontSize: "var(--text-sm)",
-                marginBottom: 8,
-              }}
-            >
-              Focus
-            </p>
-            {phase === "idle" ? (
-              <div
+      {/*
+        Header: heading + descriptive line on the left, the live Focus
+        control cluster on the right - this replaces the separate "Focus"
+        card that used to sit further down the page, so the control isn't
+        duplicated in two places.
+      */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          gap: 32,
+          marginBottom: 40,
+          flexWrap: "wrap",
+        }}
+      >
+        <div style={{ flex: "1 1 360px", minWidth: 0 }}>
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "var(--text-3xl)",
+              marginBottom: 12,
+            }}
+          >
+            {heading}
+          </h1>
+          <p
+            style={{
+              color: "var(--text-secondary)",
+              fontSize: "var(--text-base)",
+              maxWidth: 480,
+              margin: 0,
+            }}
+          >
+            {timeMessage}
+          </p>
+        </div>
+
+        <div style={{ textAlign: "right", flexShrink: 0 }}>
+          {phase === "idle" ? (
+            <Button variant="primary" onClick={start}>
+              Start Focus
+            </Button>
+          ) : (
+            <>
+              <p
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
+                  color: "var(--text-secondary)",
+                  fontSize: "var(--text-sm)",
+                  marginBottom: 4,
+                  textTransform: "uppercase",
                 }}
               >
-                <span>No session running.</span>
-                <Button variant="primary" onClick={start}>
-                  Start Focus
-                </Button>
+                {phase === "focus" ? "Focus session" : "Break"}
+              </p>
+              <div
+                className="tabular-nums"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "var(--text-2xl)",
+                  marginBottom: 12,
+                }}
+              >
+                {formatSecondsAsClock(secondsRemaining)}
               </div>
-            ) : (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <div>
-                  <span
-                    className="tabular-nums"
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: "var(--text-2xl)",
-                    }}
-                  >
-                    {formatSecondsAsClock(secondsRemaining)}
-                  </span>
-                  <span
-                    style={{ marginLeft: 12, color: "var(--text-secondary)" }}
-                  >
-                    {phase === "focus" ? "Focus session" : "Break"}
-                  </span>
-                </div>
+              <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
                 <Button variant="secondary" onClick={isRunning ? pause : start}>
                   {isRunning ? "Pause" : "Resume"}
                 </Button>
+                <Button variant="destructive" onClick={reset}>
+                  Reset
+                </Button>
               </div>
-            )}
-          </Card>
+            </>
+          )}
+        </div>
+      </div>
 
+      <div className={styles.layout}>
+        {/* main column - what's actually happening */}
+        <div>
           <p
             style={{
               color: "var(--text-secondary)",
