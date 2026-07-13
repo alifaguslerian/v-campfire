@@ -43,9 +43,21 @@ No separate warning or info color. `--accent-primary` already reads as "attentio
 
 ## Spacing & shape
 
-Scale: `4 / 8 / 12 / 16 / 24 / 32 / 48 / 64px`. Radius: `6px` (inputs, small buttons), `10px` (cards), `16px` (modals) - moderate, never a full pill shape.
+Scale: `4 / 8 / 12 / 16 / 24 / 32 / 48 / 64px`. Radius: `6px` (inputs, small buttons), **`14px`** (cards, bumped up from 10px), `16px` (modals) - moderate, never a full pill shape.
 
 **One deliberate exception**: the bottom navigation dock uses a full-round pill (`border-radius: 9999px`). A floating dock reads as a physical object separate from the content surface, not a content card - full-round is the correct shape for that specific role. Cards, buttons, and every other content surface keep the moderate-radius rule unchanged.
+
+## Elevation refinements (post-v0.4 visual pass)
+
+A second design reference was reviewed against the shipped v0.4 UI. Most of it was rejected - it proposed swapping to Playfair Display/Fira Sans (the exact "generic AI premium serif" Fraunces was chosen to avoid) and a full Material Design 3 token set (much of it irrelevant since this app is dark-only, never needs `-fixed`/`-fixed-dim` light-mode-parity tokens). What was accepted:
+
+- **Shadows widened, not just deepened.** `--shadow-sm`/`--shadow-md` were tightly clustered (`0 2px 8px`) - a wider spread reads as softer, more convincing depth without looking heavier. New values:
+  - `--shadow-sm: 0 4px 16px rgba(20, 14, 10, 0.3)`
+  - `--shadow-md: 0 16px 40px rgba(20, 14, 10, 0.4)`
+- **`--shadow-glow` (new token)**: a soft, low-opacity amber ambient glow (`0 0 24px rgba(232, 135, 58, 0.18)`) for the single most important element in a view - a primary action button, the active dock icon. Not applied broadly; one glowing element per screen at most, or it stops reading as emphasis.
+- **Card radius 10px → 14px** - softer without approaching the pill-shape line.
+- **Inputs and textareas: bottom-border only, not a boxed outline.** Already proven in the Journal page; now the default everywhere instead of Journal-only. `<select>` keeps a full (but still 1px, understated) border, since a dropdown's affordance depends on reading as a discrete clickable box in a way a text field doesn't.
+- **Rejected**: full M3 color-role palette swap, Playfair Display/Fira Sans, "lists should avoid dividers" (conflicts with the ledger-style Stats page, which is already shipped and approved).
 
 ## Accessibility
 
