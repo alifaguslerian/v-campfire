@@ -25,10 +25,14 @@
   opacity: 0.5;
 }
 
-/* dark text on amber - verified 7.13:1 in docs/DESIGN_SYSTEM.md */
+/* dark text on amber - verified 7.13:1 in docs/DESIGN_SYSTEM.md.
+   shadow-glow + inset top highlight give it a touch of "cast firelight"
+   and physical volume - this is the one element per view that should
+   read as emphasized, per the --shadow-glow token's own usage rule. */
 .primary {
   background-color: var(--accent-primary);
   color: var(--bg-base);
+  box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 .primary:hover:not(:disabled) {
   background-color: var(--accent-primary-hover);
