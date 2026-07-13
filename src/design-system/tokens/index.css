@@ -17,9 +17,9 @@ body {
   color-scheme: dark;
 }
 
-input,
-select,
-textarea {
+/* select keeps a full (understated) border - a dropdown's affordance
+   depends on reading as a discrete clickable box, unlike a text field */
+select {
   font-family: var(--font-body);
   font-size: var(--text-sm);
   color: var(--text-primary);
@@ -27,4 +27,24 @@ textarea {
   border: 1px solid var(--border-functional);
   border-radius: var(--radius-sm);
   padding: var(--space-2) var(--space-3);
+}
+
+/* inputs/textareas: bottom-border only, not a boxed outline - proven in
+   the Journal page, now the default everywhere instead of Journal-only */
+input,
+textarea {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-functional);
+  border-radius: 0;
+  padding: var(--space-2) 0;
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  border-bottom-color: var(--accent-primary);
 }
