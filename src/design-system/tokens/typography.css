@@ -47,4 +47,7 @@
    into inflating every heading level. */
 :root {
   --text-3xl: 3.25rem;
+  /* Reserved exclusively for the Focus countdown - the one number in the
+     app meant to feel monumental. Not for general headings. */
+  --text-hero: 4.5rem;
 }
