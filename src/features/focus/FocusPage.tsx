@@ -48,7 +48,8 @@ export function FocusPage() {
           className="tabular-nums"
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "var(--text-2xl)",
+            fontSize: "var(--text-hero)",
+            lineHeight: 1,
             marginBottom: 24,
           }}
         >
