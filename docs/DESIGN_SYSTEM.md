@@ -47,7 +47,16 @@ Scale: `4 / 8 / 12 / 16 / 24 / 32 / 48 / 64px`. Radius: `6px` (inputs, small but
 
 **One deliberate exception**: the bottom navigation dock uses a full-round pill (`border-radius: 9999px`). A floating dock reads as a physical object separate from the content surface, not a content card - full-round is the correct shape for that specific role. Cards, buttons, and every other content surface keep the moderate-radius rule unchanged.
 
-## Elevation refinements (post-v0.4 visual pass)
+## Typography hierarchy refinement (third visual reference pass)
+
+A Google Stitch HTML export was reviewed for spacing/rhythm/hierarchy only, not copied. It independently converged on Fraunces + Work Sans, which corroborates that choice rather than contradicting it. Four things were accepted:
+
+- **`--text-hero` (new, 4.5rem/72px)**: the Focus countdown was undersized at `--text-2xl` (40px) for a number meant to feel monumental - the one element in the app that should read as the dominant typographic moment on its screen. Used only for that countdown display, nowhere else.
+- **Two-tier section heading hierarchy.** Main-column section titles (e.g. "Latest", "Today's journal") now get real visual weight - serif, larger - via an updated `SectionHeading`. Secondary/sidebar labels (inside a Card, or clearly tertiary like "At a glance") stay quiet muted captions, unchanged. This split is deliberate: primary content earns presence, secondary info stays out of the way.
+- **Active-state pill badge**: a small pill (pulsing dot + uppercase tracked label) marking an active state at the top of a view (e.g. "Focus session" while a timer runs). Reuses the pulse animation pattern and amber accent already established for the dock's focus/music indicators - not a new interaction language, the same one applied somewhere more visible.
+- **List-row affordance**: rows that link somewhere get a 2px colored left edge (`--accent-primary`) and a small arrow that fades/slides in on hover - `opacity` and `transform` only, GPU-compositable, respects `prefers-reduced-motion` like every other animation in this system.
+
+**Rejected from this reference**: a top navbar with search and notification icons (reopens the "no top nav, bottom dock only" decision made earlier), and a near-invisible (~3% white tint) card background (our existing ~90%-opacity elevated surface is already validated and more legible - going more transparent has no upside here).
 
 A second design reference was reviewed against the shipped v0.4 UI. Most of it was rejected - it proposed swapping to Playfair Display/Fira Sans (the exact "generic AI premium serif" Fraunces was chosen to avoid) and a full Material Design 3 token set (much of it irrelevant since this app is dark-only, never needs `-fixed`/`-fixed-dim` light-mode-parity tokens). What was accepted:
 
