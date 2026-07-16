@@ -206,7 +206,9 @@ export function HomePage() {
       <div className={styles.layout}>
         {/* main column - what's actually happening */}
         <div>
-          <SectionHeading>Project Pulse</SectionHeading>
+          <div className={styles.contentSplit}>
+            <div className={styles.contentColumn}>
+              <SectionHeading>Project Pulse</SectionHeading>
           {loading ? (
             <p>Loading...</p>
           ) : recentItems.length === 0 ? (
@@ -279,17 +281,22 @@ export function HomePage() {
             </div>
           )}
 
-          {/* Habits - visual placeholder ahead of the real v0.5 feature,
-              see HABIT_PLACEHOLDERS comment above. Not clickable on
-              purpose - nothing here is wired to data yet. */}
-          <SectionHeading>Habits</SectionHeading>
-          <div className={styles.habitsGrid} style={{ marginBottom: 32 }}>
-            {HABIT_PLACEHOLDERS.map(({ label, icon: Icon }) => (
-              <Card key={label} className={styles.habitCard}>
-                <Icon size={20} strokeWidth={1.75} />
-                <span style={{ fontSize: "var(--text-sm)" }}>{label}</span>
-              </Card>
-            ))}
+            </div>
+
+            <div className={styles.contentColumn}>
+              {/* Habits - visual placeholder ahead of the real v0.5 feature,
+                  see HABIT_PLACEHOLDERS comment above. Not clickable on
+                  purpose - nothing here is wired to data yet. */}
+              <SectionHeading>Habits</SectionHeading>
+              <div className={styles.habitsGrid}>
+                {HABIT_PLACEHOLDERS.map(({ label, icon: Icon }) => (
+                  <Card key={label} className={styles.habitCard}>
+                    <Icon size={20} strokeWidth={1.75} />
+                    <span style={{ fontSize: "var(--text-sm)" }}>{label}</span>
+                  </Card>
+                ))}
+              </div>
+            </div>
           </div>
 
           <SectionHeading>Today&apos;s journal</SectionHeading>

@@ -29,6 +29,25 @@
   gap: var(--space-5);
 }
 
+.contentSplit {
+  display: grid;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.contentColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+@media (min-width: 900px) {
+  .contentSplit {
+    grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
+    align-items: start;
+  }
+}
+
 /* Habits placeholder grid - visual only, see comment in HomePage.tsx.
    Static (no hover-affordance treatment) since these buttons don't do
    anything yet - real v0.5 build gets the real interaction states. */
