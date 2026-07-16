@@ -13,3 +13,29 @@
   --duration-ambient: 10s;
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* Shared pulsing dot for "this is currently active" indicators - used by
+   the Home status badge; the dock's own dot predates this and stays as
+   its own module-scoped keyframe rather than being migrated for no
+   functional reason. */
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot var(--duration-ambient) var(--ease-standard) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot {
+    animation: none;
+  }
+}
