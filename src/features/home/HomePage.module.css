@@ -28,3 +28,33 @@
   flex-direction: column;
   gap: var(--space-5);
 }
+
+/* List rows that link somewhere - colored left edge for a visual anchor,
+   arrow fades/slides in on hover as a clearer "this opens something"
+   signal than a color change alone. opacity/transform only. */
+.trackedItemRow {
+  padding: 12px 16px;
+  border-left: 2px solid var(--accent-primary);
+}
+
+.trackedItemArrow {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity var(--duration-fast) ease,
+    transform var(--duration-fast) ease;
+  color: var(--accent-primary);
+  flex-shrink: 0;
+  display: flex;
+}
+
+.trackedItemRow:hover .trackedItemArrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trackedItemArrow {
+    transition: none;
+  }
+}

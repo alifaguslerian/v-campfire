@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
 import { Card } from "../../design-system/components/Card/Card";
 import { Button } from "../../design-system/components/Button/Button";
 import { ProgressBar } from "../../design-system/components/ProgressBar/ProgressBar";
@@ -117,6 +118,41 @@ export function HomePage() {
         }}
       >
         <div style={{ flex: "1 1 360px", minWidth: 0 }}>
+          {phase !== "idle" && (
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                backgroundColor: "var(--bg-elevated-2)",
+                border: "1px solid var(--border-subtle)",
+                borderRadius: 9999,
+                padding: "4px 12px",
+                marginBottom: 16,
+              }}
+            >
+              <span
+                className="pulse-dot"
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  backgroundColor: "var(--accent-primary)",
+                }}
+              />
+              <span
+                style={{
+                  fontSize: 11,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                  color: "var(--accent-primary)",
+                  fontWeight: 500,
+                }}
+              >
+                {phase === "focus" ? "Focus session active" : "Break active"}
+              </span>
+            </div>
+          )}
           <h1
             style={{
               fontFamily: "var(--font-display)",
@@ -159,7 +195,8 @@ export function HomePage() {
                 className="tabular-nums"
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "var(--text-2xl)",
+                  fontSize: "var(--text-hero)",
+                  lineHeight: 1,
                   marginBottom: 12,
                 }}
               >
@@ -211,7 +248,7 @@ export function HomePage() {
                   item.checklist_total,
                 );
                 return (
-                  <Card key={item.id} style={{ padding: "12px 16px" }}>
+                  <Card key={item.id} className={styles.trackedItemRow}>
                     <div
                       style={{
                         display: "flex",
@@ -250,6 +287,9 @@ export function HomePage() {
                         }}
                       >
                         {item.checklist_total > 0 ? `${progress}%` : "\u2013"}
+                      </span>
+                      <span className={styles.trackedItemArrow}>
+                        <ChevronRight size={16} />
                       </span>
                     </div>
                   </Card>
