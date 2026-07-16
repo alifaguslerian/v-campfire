@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Wind, Droplet, Move, Book } from "lucide-react";
 import { Card } from "../../design-system/components/Card/Card";
 import { Button } from "../../design-system/components/Button/Button";
 import { ProgressBar } from "../../design-system/components/ProgressBar/ProgressBar";
@@ -22,6 +22,16 @@ import {
 import { getEntryByDate, type JournalEntry } from "../../core/db/journal";
 import { getStatsSummary, listJournalDates } from "../../core/db/stats";
 import styles from "./HomePage.module.css";
+
+// Visual placeholder only - not wired to any database table or query.
+// habits/habit_logs exist in the schema but v0.5 hasn't built the real
+// tracking logic yet. These four are generic examples, not user data.
+const HABIT_PLACEHOLDERS = [
+  { label: "Meditate", icon: Wind },
+  { label: "Hydrate", icon: Droplet },
+  { label: "Stretch", icon: Move },
+  { label: "Read", icon: Book },
+];
 
 export function HomePage() {
   const { phase, secondsRemaining, isRunning, start, pause, reset } =
@@ -80,6 +90,10 @@ export function HomePage() {
         ? "Take a breath."
         : "Ready when you are.";
 
+  // Always something to look at in this slot - the wall clock when idle,
+  // the countdown once a session starts. Never blank waiting for a click.
+  const heroTime = phase === "idle" ? clock : formatSecondsAsClock(secondsRemaining);
+
   return (
     <div className={styles.wrapper}>
       <div
@@ -93,31 +107,18 @@ export function HomePage() {
         <p style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)" }}>
           {dateLabel}
         </p>
-        <span
-          className="tabular-nums"
-          style={{ color: "var(--text-secondary)", fontSize: "var(--text-sm)" }}
-        >
-          {clock}
-        </span>
       </div>
 
       {/*
-        Header: heading + descriptive line on the left, the live Focus
-        control cluster on the right - this replaces the separate "Focus"
-        card that used to sit further down the page, so the control isn't
-        duplicated in two places.
+        Header uses the same 2fr:1fr grid (and the same .side divider) as
+        the content grid below it - that's what keeps the heading and the
+        Focus display sitting next to each other instead of the timer
+        getting stretched all the way to the wrapper's right edge, and
+        what makes the vertical divider line continue unbroken from the
+        header straight into the content below.
       */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          gap: 32,
-          marginBottom: 40,
-          flexWrap: "wrap",
-        }}
-      >
-        <div style={{ flex: "1 1 360px", minWidth: 0 }}>
+      <div className={styles.layout} style={{ marginBottom: 40 }}>
+        <div>
           {phase !== "idle" && (
             <div
               style={{
@@ -174,58 +175,38 @@ export function HomePage() {
           </p>
         </div>
 
-        <div style={{ textAlign: "right", flexShrink: 0 }}>
+        <div className={styles.side} style={{ justifyContent: "center" }}>
+          <div
+            className="tabular-nums"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "var(--text-hero)",
+              lineHeight: 1,
+            }}
+          >
+            {heroTime}
+          </div>
           {phase === "idle" ? (
-            <Button variant="primary" onClick={start}>
+            <Button variant="primary" onClick={start} style={{ alignSelf: "flex-start" }}>
               Start Focus
             </Button>
           ) : (
-            <>
-              <p
-                style={{
-                  color: "var(--text-secondary)",
-                  fontSize: "var(--text-sm)",
-                  marginBottom: 4,
-                  textTransform: "uppercase",
-                }}
-              >
-                {phase === "focus" ? "Focus session" : "Break"}
-              </p>
-              <div
-                className="tabular-nums"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "var(--text-hero)",
-                  lineHeight: 1,
-                  marginBottom: 12,
-                }}
-              >
-                {formatSecondsAsClock(secondsRemaining)}
-              </div>
-              <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
-                <Button variant="secondary" onClick={isRunning ? pause : start}>
-                  {isRunning ? "Pause" : "Resume"}
-                </Button>
-                <Button variant="destructive" onClick={reset}>
-                  Reset
-                </Button>
-              </div>
-            </>
+            <div style={{ display: "flex", gap: 8 }}>
+              <Button variant="secondary" onClick={isRunning ? pause : start}>
+                {isRunning ? "Pause" : "Resume"}
+              </Button>
+              <Button variant="destructive" onClick={reset}>
+                Reset
+              </Button>
+            </div>
           )}
         </div>
       </div>
 
-      <div
-        style={{
-          borderBottom: "1px solid var(--border-subtle)",
-          marginBottom: 40,
-        }}
-      />
-
       <div className={styles.layout}>
         {/* main column - what's actually happening */}
         <div>
-          <SectionHeading>Latest</SectionHeading>
+          <SectionHeading>Project Pulse</SectionHeading>
           {loading ? (
             <p>Loading...</p>
           ) : recentItems.length === 0 ? (
@@ -298,6 +279,19 @@ export function HomePage() {
             </div>
           )}
 
+          {/* Habits - visual placeholder ahead of the real v0.5 feature,
+              see HABIT_PLACEHOLDERS comment above. Not clickable on
+              purpose - nothing here is wired to data yet. */}
+          <SectionHeading>Habits</SectionHeading>
+          <div className={styles.habitsGrid} style={{ marginBottom: 32 }}>
+            {HABIT_PLACEHOLDERS.map(({ label, icon: Icon }) => (
+              <Card key={label} className={styles.habitCard}>
+                <Icon size={20} strokeWidth={1.75} />
+                <span style={{ fontSize: "var(--text-sm)" }}>{label}</span>
+              </Card>
+            ))}
+          </div>
+
           <SectionHeading>Today&apos;s journal</SectionHeading>
           {todayEntry?.done_today ? (
             <p>{todayEntry.done_today}</p>
@@ -309,7 +303,8 @@ export function HomePage() {
           )}
         </div>
 
-        {/* side column - status and atmosphere, not primary content */}
+        {/* side column - status and atmosphere, left as-is for now, not
+            part of this pass */}
         <div className={styles.side}>
           {currentTrack && (
             <Card>
